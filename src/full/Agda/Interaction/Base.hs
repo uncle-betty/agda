@@ -391,7 +391,7 @@ instance Read CompilerBackend where
 data Rewrite =  AsIs | Instantiated | HeadNormal | Simplified | Normalised
     deriving (Show, Read)
 
-data ComputeMode = DefaultCompute | IgnoreAbstract | UseShowInstance
+data ComputeMode = DefaultCompute | HeadCompute | IgnoreAbstract | UseShowInstance
   deriving (Show, Read, Eq)
 
 data UseForce
