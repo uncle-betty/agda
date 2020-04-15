@@ -99,7 +99,7 @@ jobs:
         icu-ver: [58.2-3]
 
     env:
-      ARGS: "--stack-yaml stack-${{ matrix.ghc-ver }}.yaml --no-terminal --fast"
+      ARGS: "--stack-yaml stack-${{ matrix.ghc-ver }}.yaml --no-terminal"
       FLAGS: "--flag Agda:enable-cluster-counting"
       ICU_FILE: "mingw-w64-x86_64-icu-${{ matrix.icu-ver }}-any.pkg.tar.xz"
 
@@ -123,7 +123,7 @@ jobs:
       run: |
         stack build ${ARGS} ${FLAGS} --only-dependencies
 
-    - name: Build agda
+    - name: Build Agda
       shell: bash
       run: |
         stack build ${ARGS} ${FLAGS}
