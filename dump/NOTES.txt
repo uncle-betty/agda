@@ -1,0 +1,62 @@
+generating dump.txt
+
+  * build Agda with debug symbols
+  * adjust the addresses under "change me" in dump.c and trav.c
+  * run "make" to build dump.so
+
+  * run "run.sh" to reproduce the issue
+  * once the output has stopped, keep "run.sh" around and, in another window,
+    send a SIGUSR1 to the Agda process
+  * once the output has stopped, end "run.sh" via ctrl-c
+
+  * rename "out.txt" to "dump.txt"
+
+format of the interesting lines in dump.txt
+
+  ### root {address}
+
+  -> the address of a GC root closure on the heap
+
+  ### visit {address-1}:{length-1}:{info-1} <- {address-2}:{length-2}:{info-2}
+
+  -> an edge in the retainer graph
+
+     - address-1, address-2 = addresses of the child and parent closures
+     - length-1, length-2 = lengths of the closures
+     - info-1, info-2 = addresses of the closures' type info
+
+generating info-addr.txt
+
+  * run "addr.sh"
+
+  extracts unique info-1 and info-2 values from dump.txt
+
+generating info-symb.txt
+
+  * run "symb.sh"
+
+  translates the addresses in info-addr.txt to symbolic values by way of the
+  DWARF symbol table of the Agda executable
+
+generating dump.json
+
+  * run "conv.py"
+
+format of dump.json
+
+  {
+    "infos": ...
+    "lengths": ...
+    "roots": ...
+    "edges": ...
+  }
+
+  infos - maps each closure (address) to its corresponding info symbol from
+          info-symb.txt
+
+  lengths - maps each closure (address) to its length in bytes
+
+  roots - the GC root closures
+
+  edges - the edges of the retainer graph (from parent to child)
+

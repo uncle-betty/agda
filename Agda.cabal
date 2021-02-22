@@ -635,9 +635,7 @@ library
 
   -- NOTE: If adding flags, also add to `.ghci-8.0`
   if impl(ghc <= 8.0.2)
-    ghc-options: -fexpose-all-unfoldings
-                 -fspecialise-aggressively
-                 -fprint-potential-instances
+    ghc-options: -fprint-potential-instances
                  -- Initially, we disable all the warnings.
                  -w
                  -Werror
@@ -672,9 +670,7 @@ library
                  -Wwarnings-deprecations
                  -Wwrong-do-bind
   else
-    ghc-options: -fexpose-all-unfoldings
-                 -fspecialise-aggressively
-                 -fprint-potential-instances
+    ghc-options: -fprint-potential-instances
                  -Werror=unrecognised-warning-flags
                  -Werror=deprecated-flags
                  -Werror=deriving-typeable
@@ -953,9 +949,7 @@ test-suite agda-tests
 
   -- NOTE: If adding or removing flags, also change `.ghci-8.0`
   if impl(ghc <= 8.0.2)
-    ghc-options: -fexpose-all-unfoldings
-                 -fspecialise-aggressively
-                 -threaded
+    ghc-options: -threaded
                  -- Initially, we disable all the warnings.
                  -w
                  -Werror
@@ -990,9 +984,7 @@ test-suite agda-tests
                  -Wwarnings-deprecations
                  -Wwrong-do-bind
   else
-    ghc-options: -fexpose-all-unfoldings
-                 -fspecialise-aggressively
-                 -threaded
+    ghc-options: -threaded
                  -Werror=unrecognised-warning-flags
                  -Werror=deprecated-flags
                  -Werror=deriving-typeable
